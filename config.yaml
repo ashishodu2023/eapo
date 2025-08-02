@@ -1,0 +1,17 @@
+model_id: "microsoft/Phi-3-mini-4k-instruct"
+quantization: "4bit"
+device_map: "auto"
+
+max_new_tokens: 128
+do_sample: false
+temperature: 0.0
+top_p: 1.0
+
+dataset_path: "data/xsum_sample.jsonl"          # {"doc": "...", "ref": "..."} per line
+num_trials: 20                                   # Optuna trials
+energy_weight: 1.0
+accuracy_weight: 1.0
+tpj_weight: 1.0
+eval_batch: 6                                    # #examples per trial (subset)
+nvml_interval_ms: 50                             # power sampling interval
+seed: 42
