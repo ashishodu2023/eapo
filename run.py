@@ -10,7 +10,9 @@ def main():
         cfg["model_id"],
         device_map=cfg.get("device_map", "auto"),
         quantization=cfg.get("quantization", "4bit"),
-        trust_remote_code=True
+        trust_remote_code=True,
+        attn_implementation=cfg.get("attn_implementation", "sdpa"),
+        bnb_compute_dtype=cfg.get("bnb_compute_dtype", "auto"),
     )
     study = run_search(model, tok, cfg)
     best = study.best_trial

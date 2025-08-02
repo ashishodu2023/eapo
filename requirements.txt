@@ -1,4 +1,4 @@
-transformers>=4.40.2
+transformers==4.40.2
 accelerate>=0.29.2
 bitsandbytes>=0.43.0
 optuna>=3.6.1
@@ -7,3 +7,7 @@ tqdm>=4.66.4
 pynvml>=11.5.0
 numpy>=1.26
 scikit-learn>=1.4
+matplotlib>=3.8
+
+# Optional: fastest attention (requires compatible GPU/CUDA toolchain)
+# flash-attn>=2.5.6

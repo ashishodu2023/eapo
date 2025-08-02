@@ -36,7 +36,7 @@ def generate_and_measure(model, tokenizer, prompt: str, max_new_tokens: int, nvm
                 **inputs,
                 max_new_tokens=max_new_tokens,
                 do_sample=False,
-                use_cache=False
+                use_cache=False  # avoids DynamicCache seen_tokens errors on newer transformers
             )
             elapsed = time.perf_counter() - t0
         text = tokenizer.decode(out[0], skip_special_tokens=True)

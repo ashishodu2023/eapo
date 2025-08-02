@@ -36,3 +36,9 @@ scikit-learn>=1.4
 matplotlib>=3.8
 
 ```
+
+## Attention & Quantization
+- Default attention is **SDPA** (no extra install). Set in `config.yaml`:
+  ```yaml
+  attn_implementation: "sdpa"
+  ```

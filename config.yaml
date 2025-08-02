@@ -1,17 +1,24 @@
 model_id: "microsoft/Phi-3-mini-4k-instruct"
 quantization: "4bit"
-device_map: "auto"
+device_map: "cuda"
+
+# Attention kernel: "eager" (default, no extra installs) or "flash_attention_2" (if flash-attn installed)
+attn_implementation: "eager"
+
+# bitsandbytes compute dtype: "auto" | "fp16" | "bf16" | "fp32"
+# "auto" = bf16 if supported, else fp16
+bnb_compute_dtype: "auto"
 
 max_new_tokens: 128
 do_sample: false
 temperature: 0.0
 top_p: 1.0
 
-dataset_path: "data/xsum_sample.jsonl"          # {"doc": "...", "ref": "..."} per line
-num_trials: 20                                   # Optuna trials
+dataset_path: "data/xsum_sample.jsonl"
+num_trials: 20
 energy_weight: 1.0
 accuracy_weight: 1.0
 tpj_weight: 1.0
-eval_batch: 6                                    # #examples per trial (subset)
-nvml_interval_ms: 50                             # power sampling interval
+eval_batch: 6
+nvml_interval_ms: 50
 seed: 42
