@@ -1,0 +1,2 @@
+number,state,value,brevity,format,reason,style,cfg_brevity,cfg_format,cfg_reasoning,cfg_style,metric_energy_J_per_ex,metric_energy_total_J,metric_latency_s,metric_rougeL,metric_tokens_total,metric_tpj,x,y
+0,1,-0.6595323139801713,word50,bullets,bounded,role,word50,bullets,bounded,role,257.0254698081598,1542.1528188489588,2.248130002999839,0.3846153846153846,768,0.49800512025340293,1542.1528188489588,0.3846153846153846

@@ -1,13 +1,9 @@
-model_id: "microsoft/Phi-3-mini-4k-instruct"
-quantization: "4bit"
-device_map: "cuda"
-
-# Attention kernel: "eager" (default, no extra installs) or "flash_attention_2" (if flash-attn installed)
-attn_implementation: "eager"
-
-# bitsandbytes compute dtype: "auto" | "fp16" | "bf16" | "fp32"
-# "auto" = bf16 if supported, else fp16
+model_id: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+quantization: "none"
+device_map: "auto"            # keep "auto" here
+attn_implementation: "eager"  # Phi-3 needs eager (no SDPA)
 bnb_compute_dtype: "auto"
+
 
 max_new_tokens: 128
 do_sample: false
