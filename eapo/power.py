@@ -64,4 +64,3 @@ def measure_energy(nvml_interval_ms: int = 50, device_index: int = 0):
         elapsed = time.perf_counter() - t0
         pl.elapsed = elapsed
 
-import time  # ensure time imported for perf_counter

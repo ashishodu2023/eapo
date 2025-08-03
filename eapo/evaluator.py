@@ -1,4 +1,5 @@
-import json, time
+import json
+import time
 from typing import List, Dict
 import numpy as np
 import torch
@@ -8,7 +9,8 @@ def load_jsonl(path: str, limit: int = None) -> List[Dict]:
     data = []
     with open(path, "r", encoding="utf-8") as f:
         for i, line in enumerate(f):
-            if limit and i >= limit: break
+            if limit and i >= limit:
+                break
             data.append(json.loads(line))
     return data
 
@@ -22,7 +24,8 @@ def rouge_l(pred: str, ref: str) -> float:
         return dp[-1][-1]
     a = pred.split()
     b = ref.split()
-    if not b: return 0.0
+    if not b:
+        return 0.0
     return lcs(a, b)/max(1,len(b))
 
 def generate_and_measure(model, tokenizer, prompt: str, max_new_tokens: int, nvml_interval_ms: int):

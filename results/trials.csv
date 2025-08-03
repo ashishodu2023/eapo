@@ -1,2 +1,2 @@
 number,state,value,brevity,format,reason,style,cfg_brevity,cfg_format,cfg_reasoning,cfg_style,metric_energy_J_per_ex,metric_energy_total_J,metric_latency_s,metric_rougeL,metric_tokens_total,metric_tpj
-0,1,-0.6965052304446966,1sent,json,bounded,stepwise,1sent,json,bounded,stepwise,261.7038483716301,1570.2230902297806,2.379235621333313,0.3846153846153846,768,0.48910247516969946
+0,1,-0.318938359285557,3sent,free,bounded,stepwise,3sent,free,bounded,stepwise,206.64852469634366,1239.891148178062,1.8994164525001906,0.3846153846153846,665,0.5363374042771203

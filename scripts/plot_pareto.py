@@ -9,103 +9,89 @@ def to_float(x):
     try:
         v = float(x)
         return None if math.isnan(v) else v
-    except:
+    except (ValueError, TypeError):
         return None
 
+def prettify(col):
+    return (col.replace("metric_", "")
+               .replace("cfg_", "")
+               .replace("_", " ")
+               .title())
+
 def load_rows(path):
-    with open(path, 'r', encoding='utf-8') as f:
+    with open(path, newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
 
-def prettify(name):
-    return (name.replace('metric_', '').replace('cfg_', '').replace('_', ' ').title())
-
-def non_dominated(points, minimize_x, maximize_y, eps_x, eps_y):
-    nd = []
-    for i, a in enumerate(points):
-        ax, ay = a['x'], a['y']
-        dominated = False
-        for j, b in enumerate(points):
-            if i == j: continue
-            bx, by = b['x'], b['y']
-            if minimize_x:
-                x_ok = bx <= ax + eps_x
-                x_strict = bx < ax - eps_x
-            else:
-                x_ok = bx >= ax - eps_x
-                x_strict = bx > ax + eps_x
-            if maximize_y:
-                y_ok = by >= ay - eps_y
-                y_strict = by > ay + eps_y
-            else:
-                y_ok = by <= ay + eps_y
-                y_strict = by < ay - eps_y
-            if x_ok and y_ok and (x_strict or y_strict):
-                dominated = True
-                break
-        if not dominated:
-            nd.append(a)
-    nd.sort(key=lambda p: p['x'], reverse=not minimize_x)
-    return nd
-
 def main():
-    parser = argparse.ArgumentParser(
-        description='Pareto plot with epsilon-dominance'
-    )
-    parser.add_argument('--csv', default='results/trials.csv', help='Input CSV path')
-    parser.add_argument('--out', default='results/pareto.png', help='Output image path')
-    parser.add_argument('--x', default='metric_energy_total_J', help='X-axis column')
-    parser.add_argument('--y', default='metric_rougeL', help='Y-axis column')
-    parser.add_argument('--label', default='', help='Column for point labels')
-    parser.add_argument('--title', default='', help='Plot title')
-    parser.add_argument('--eps_x', type=float, default=0.0, help='Epsilon tolerance on X')
-    parser.add_argument('--eps_y', type=float, default=0.005, help='Epsilon tolerance on Y')
-    parser.add_argument('--minimize_x', action='store_true', help='Minimize X (default for energy/latency)')
-    parser.add_argument('--maximize_y', action='store_true', help='Maximize Y (default for accuracy/TPJ)')
-    args = parser.parse_args()
+    p = argparse.ArgumentParser(description="Scatter + true Pareto frontier")
+    p.add_argument("--csv",      default="results/trials.csv")
+    p.add_argument("--out",      default="results/pareto.png")
+    p.add_argument("--x",        default="metric_energy_total_J")
+    p.add_argument("--y",        default="metric_rougeL")
+    p.add_argument("--label",    default="cfg_brevity")
+    p.add_argument("--title",    default="Accuracy vs Energy (Pareto Frontier)")
+    args = p.parse_args()
 
-    rows = load_rows(args.csv)
-    minimize_x = args.minimize_x or args.x in ('metric_energy_total_J', 'metric_latency_s')
-    maximize_y = args.maximize_y or args.y in ('metric_rougeL', 'metric_tpj')
+    data = load_rows(args.csv)
+    pts = []
+    for r in data:
+        x = to_float(r.get(args.x))
+        y = to_float(r.get(args.y))
+        if x is None or y is None:
+            continue
+        pts.append((x,y,r.get(args.label,""), r))
 
-    points = []
-    for r in rows:
-        x = to_float(r.get(args.x)); y = to_float(r.get(args.y))
-        if x is None or y is None: continue
-        lab = r.get(args.label, '') if args.label else ''
-        points.append({'x': x, 'y': y, 'lab': lab})
-
-    if not points:
-        print('No valid points found.')
+    if not pts:
+        print("No valid data!")
         return
 
-    frontier = non_dominated(points, minimize_x, maximize_y, args.eps_x, args.eps_y)
+    # Build frontier: for each unique X, keep the max-Y row
+    best_for_x = {}
+    for x,y,lab,r in pts:
+        if x not in best_for_x or y > best_for_x[x][0]:
+            best_for_x[x] = (y,lab)
 
-    plt.figure(figsize=(10, 7))
-    fset = {(p['x'], p['y']) for p in frontier}
-    xs = [p['x'] for p in points if (p['x'], p['y']) not in fset]
-    ys = [p['y'] for p in points if (p['x'], p['y']) not in fset]
-    plt.scatter(xs, ys, s=80, alpha=0.6, label='All Trials')
+    # Sort frontier points by X
+    frontier = sorted(((x,y_lab[0],y_lab[1]) for x,y_lab in best_for_x.items()),
+                      key=lambda t: t[0])
 
-    fx = [p['x'] for p in frontier]
-    fy = [p['y'] for p in frontier]
-    plt.scatter(fx, fy, s=120, edgecolor='black', alpha=0.9, label='ε-Pareto Frontier')
-    plt.plot(fx, fy, linewidth=2.0)
+    # Now filter to the monotonic envelope: only keep ones that improve or tie as X increases
+    envelope = []
+    max_y = -math.inf
+    for x,y,lab in frontier:
+        if y >= max_y:
+            envelope.append((x,y,lab))
+            max_y = y
 
-    if args.label:
-        for p in points:
-            if p['lab']:
-                plt.annotate(p['lab'], (p['x'], p['y']), fontsize=9, xytext=(3,3), textcoords='offset points')
+    # Plot all points
+    xs, ys, labs = zip(*[(x,y,lab) for x,y,lab,_ in pts])
+    plt.figure(figsize=(10,7))
+    plt.scatter(xs, ys, s=80, alpha=0.6, label="All Trials")
 
-    plt.grid(True, linestyle='--', alpha=0.3)
+    # Plot and annotate frontier
+    fx = [x for x,y,lab in envelope]
+    fy = [y for x,y,lab in envelope]
+    plt.plot(fx, fy, color="C1", lw=2, label="Pareto Frontier")
+    plt.scatter(fx, fy, s=120, color="C1", edgecolor="k", linewidth=1.2)
+
+    for x,y,lab in envelope:
+        if lab:
+            plt.annotate(lab, (x,y),
+                         fontsize=9, xytext=(4,4),
+                         textcoords="offset points", color="C1")
+
+    # Clean up
+    plt.title(args.title)
     plt.xlabel(prettify(args.x))
     plt.ylabel(prettify(args.y))
-    plt.title(args.title or f'{prettify(args.y)} vs {prettify(args.x)}')
+    plt.grid(True, linestyle="--", alpha=0.3)
     plt.legend()
-    out = Path(args.out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    plt.tight_layout()
-    plt.savefig(out, dpi=180)
-    print(f'Saved Pareto plot to {out.resolve()}')
 
-if __name__ == '__main__':
+    outp = Path(args.out)
+    outp.parent.mkdir(exist_ok=True, parents=True)
+    plt.tight_layout()
+    plt.savefig(outp, dpi=180)
+    print("Saved Pareto plot to", outp.resolve())
+
+if __name__=="__main__":
     main()

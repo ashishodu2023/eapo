@@ -1,6 +1,6 @@
 # eapo/models.py
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 def _resolve_bnb_compute_dtype(choice: str) -> torch.dtype:
     choice = (choice or "auto").lower()
