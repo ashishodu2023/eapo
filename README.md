@@ -200,8 +200,34 @@ python scripts/plot_pareto.py \
 - `tokens_total` — total generated tokens.
 - `tpj` — tokens per joule (higher is better).
 - `latency_s` — mean latency (s).
-
 ---
+
+**Metrics Evaluate**
+```python
+# 1) Per‐example + summary outputs via explicit prompt config
+python scripts/evaluate.py \
+  --prompt-config '{"style":"role","reasoning":"bounded","format":"bullets","brevity":"word50"}' \
+  --dataset data/xsum_sample.jsonl \
+  --per-example-output results/eval_per_example.csv \
+  --summary-output   results/eval_summary.json
+
+# 2) Or read prompt config (and all other settings) from config.yaml
+python scripts/evaluate.py \
+  --config-yaml config.yaml \
+  --per-example-output results/eval_per_example.csv \
+  --summary-output   results/eval_summary.json
+```
+```json
+{
+  "mean_rougeL": 0.3846153846153846,
+  "mean_energy_J": 250.10835848583076,
+  "total_energy_J": 1500.6501509149846,
+  "total_tokens": 768,
+  "tpj": 0.5117781779662174,
+  "mean_latency_s": 2.24891336250001
+}
+
+```
 
 ## Models & Quantization Tips
 

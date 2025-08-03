@@ -18,3 +18,13 @@ tpj_weight: 1.0
 eval_batch: 6
 nvml_interval_ms: 50
 seed: 42
+
+
+num_trials: 1
+
+# instead of searching, evaluate exactly this prompt config on your whole dataset
+fixed_prompt:
+  style: role
+  reasoning: bounded
+  format: bullets
+  brevity: word50

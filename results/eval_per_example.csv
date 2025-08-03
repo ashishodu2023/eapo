@@ -1,0 +1,51 @@
+doc,ref,pred,rougeL,energy_J,latency_s,tokens_gen
+The prime minister announced new climate initiatives aimed at reducing emissions by 2030.,"New climate initiatives target emissions cuts by 2030, the prime minister announced.","[SYSTEM]
+You are an expert editor. Provide accurate, concise responses. If reasoning is needed, limit it to two short steps. Return 3 bullet points. Keep it under 50 words.
+
+[USER]
+Summarize the following passage:
+""""""The prime minister announced new climate initiatives aimed at reducing emissions by 2030.""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""",0.3333333333333333,183.9873343705253,2.673707051000065,128
+A study finds that moderate exercise improves cognitive health in adults over 50.,"Moderate exercise boosts cognitive health for adults over 50, a study reports.","[SYSTEM]
+You are an expert editor. Provide accurate, concise responses. If reasoning is needed, limit it to two short steps. Return 3 bullet points. Keep it under 50 words.
+
+[USER]
+Summarize the following passage:
+""""""A study finds that moderate exercise improves cognitive health in adults over 50.""""""
+
+singsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingsingssingssngssssssssssssssssssssssssppssssssssssssppssingssppssandssandsandsandsandsandsandsandsandsands",0.4166666666666667,264.01781903531435,2.1630734939999456,128
+The city council approved funding to expand public transit lines across the metro area.,City council funds expansion of metro public transit lines.,"[SYSTEM]
+You are an expert editor. Provide accurate, concise responses. If reasoning is needed, limit it to two short steps. Return 3 bullet points. Keep it under 50 words.
+
+[USER]
+Summarize the following passage:
+""""""The city council approved funding to expand public transit lines across the metro area.""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""!""""""""""""""""""""""""""""""""""""""""""""!""""""",0.3333333333333333,258.75508214627445,2.1583414540000376,128
+Researchers unveiled a new battery design that charges faster while maintaining capacity.,New battery design charges faster without sacrificing capacity.,"[SYSTEM]
+You are an expert editor. Provide accurate, concise responses. If reasoning is needed, limit it to two short steps. Return 3 bullet points. Keep it under 50 words.
+
+[USER]
+Summarize the following passage:
+""""""Researchers unveiled a new battery design that charges faster while maintaining capacity.""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""!""""""""""""""""""""""""""""""""""""""""""""",0.5,256.67530542830474,2.150805633000118,128
+The tech company launched a privacy-focused messaging app with end-to-end encryption.,A tech firm launched a new encrypted messaging app focused on privacy.,"[SYSTEM]
+You are an expert editor. Provide accurate, concise responses. If reasoning is needed, limit it to two short steps. Return 3 bullet points. Keep it under 50 words.
+
+[USER]
+Summarize the following passage:
+""""""The tech company launched a privacy-focused messaging app with end-to-end encryption.""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""",0.4166666666666667,268.533605507867,2.1801610099998925,128
+"Heavy rains caused flooding across several regions, prompting evacuations and road closures.",Flooding from heavy rains led to evacuations and road closures in multiple regions.,"[SYSTEM]
+You are an expert editor. Provide accurate, concise responses. If reasoning is needed, limit it to two short steps. Return 3 bullet points. Keep it under 50 words.
+
+[USER]
+Summarize the following passage:
+""""""Heavy rains caused flooding across several regions, prompting evacuations and road closures.""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""!""""""""""",0.3076923076923077,268.68100442669885,2.167391533,128
